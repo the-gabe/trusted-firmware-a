@@ -480,8 +480,17 @@ static void fw_slv_grp_init(void)
 
 static void fw_region_init(void)
 {
-	/* Use FW_DDR_RGN0_REG to config 1024~1025M space to secure */
-	fw_buf_ddr_rgn_cfg(1024, 1025, 0);
+	/* FW_DDR_RGN0: TF-A TZRAM */
+	fw_buf_ddr_rgn_cfg(TZRAM_BASE / SIZE_M(1),
+			   (TZRAM_BASE + TZRAM_SIZE) / SIZE_M(1), 0);
+
+#ifdef BL32_BASE
+	/* FW_DDR_RGN1: BL32 (OP-TEE) TZDRAM */
+	CASSERT(BL32_BASE % SIZE_M(1) == 0, bl32_base_not_aligned);
+	CASSERT(BL32_LIMIT % SIZE_M(1) == 0, bl32_limit_not_aligned);
+	fw_buf_ddr_rgn_cfg(BL32_BASE / SIZE_M(1),
+			   BL32_LIMIT / SIZE_M(1), 1);
+#endif
 
 	/* Use FW_SYSMEM_RGN0_REG to config 0~32k space to secure */
 	fw_buf_sysmem_rgn_cfg(0, 32, 0);

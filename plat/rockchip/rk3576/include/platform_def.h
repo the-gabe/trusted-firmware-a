@@ -80,6 +80,21 @@
 #define BL31_LIMIT		(TZRAM_BASE + TZRAM_SIZE)
 
 /*******************************************************************************
+ * BL32 (OP-TEE) specific defines.
+ ******************************************************************************/
+/*
+ * OP-TEE TZDRAM region.  Must match CFG_TZDRAM_START / CFG_TZDRAM_SIZE
+ * in the OP-TEE platform configuration.
+ *
+ * The RK3576 DDR firewall registers are in the SGRF, accessible only
+ * from EL3.  TF-A must configure the DDR firewall to protect this
+ * region on behalf of OP-TEE (which runs at S-EL1).
+ */
+#define BL32_BASE		(RK_DRAM_BASE + 0x200000)
+#define BL32_SIZE		0x02000000
+#define BL32_LIMIT		(BL32_BASE + BL32_SIZE)
+
+/*******************************************************************************
  * Platform specific page table and MMU setup constants
  ******************************************************************************/
 #define PLAT_PHY_ADDR_SPACE_SIZE	(1ULL << 32)
