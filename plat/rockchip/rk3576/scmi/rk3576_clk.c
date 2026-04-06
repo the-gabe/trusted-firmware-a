@@ -1221,7 +1221,7 @@ int rockchip_opteed_clk_set_rate(uint64_t clk_idx, uint64_t rate)
 {
 	rk_scmi_clock_t *table;
 
-	if (clk_idx > CLK_NR_CLKS) {
+	if (clk_idx >= CLK_NR_CLKS) {
 		INFO("%s: clk-%ld, %ld not supported\n", __func__, clk_idx, rate);
 		return SCMI_INVALID_PARAMETERS;
 	}
@@ -1237,7 +1237,7 @@ int rockchip_opteed_clk_get_rate(uint64_t clk_idx, uint64_t *rate)
 {
 	rk_scmi_clock_t *table;
 
-	if (clk_idx > CLK_NR_CLKS) {
+	if (clk_idx >= CLK_NR_CLKS) {
 		INFO("%s: clk-%ld not supported\n", __func__, clk_idx);
 		return SCMI_INVALID_PARAMETERS;
 	}
@@ -1252,7 +1252,7 @@ int rockchip_opteed_clk_enable(uint64_t clk_idx, uint64_t enable)
 {
 	rk_scmi_clock_t *table;
 
-	if (clk_idx > CLK_NR_CLKS) {
+	if (clk_idx >= CLK_NR_CLKS) {
 		INFO("%s: clk-%ld, %ld not supported\n", __func__, clk_idx, enable);
 		return SCMI_INVALID_PARAMETERS;
 	}
